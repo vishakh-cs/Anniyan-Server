@@ -6,7 +6,9 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {},
+});
 
 io.on('connection', (socket) => {
   console.log('Socket connected:', socket.id);
