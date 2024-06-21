@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://anniyan-client.vercel.app/",
+    origin: "https://anniyan-client.vercel.app",
   },
 });
 
