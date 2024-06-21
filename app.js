@@ -2,28 +2,27 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
-
 const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: {},
+  cors: {
+    origin: process.env.CLIENT_URL,
+  },
 });
 
 io.on('connection', (socket) => {
-  console.log('Socket connected:', socket.id);
+  console.log('socket is on');
   
   socket.on('chat', (message) => {
-    io.emit('chat', message); // Broadcast message to all connected clients
+    io.emit('chat', message);
   });
 
   socket.on('disconnect', () => {
-    console.log('Socket disconnected:', socket.id);
+    console.log('disconnected');
   });
 });
 
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+server.listen(3000, () => {
+  console.log('server connected on port 3000');
 });
