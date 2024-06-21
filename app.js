@@ -15,6 +15,10 @@ const io = new Server(server, {
 allowEIO3: true
 });
 
+server.prependListener("request", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+});
+
 io.on('connection', (socket) => {
   console.log('socket is on');
   
