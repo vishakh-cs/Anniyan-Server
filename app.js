@@ -1,23 +1,15 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-const cors = require('cors'); // Import cors middleware
 require('dotenv').config();
-
 const app = express();
 const server = http.createServer(app);
 
-// Set CORS options
-const corsOptions = {
-  origin: process.env.CLIENT_URL, // Replace with your client's URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
-};
-
-// Use CORS middleware
-app.use(cors(corsOptions));
-
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+  },
+});
 
 io.on('connection', (socket) => {
   console.log('socket is on');
@@ -31,8 +23,6 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, () => {
-  console.log(`server connected on port ${PORT}`);
+server.listen(3000, () => {
+  console.log('server connected on port 3000');
 });
