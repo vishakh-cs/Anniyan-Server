@@ -6,18 +6,10 @@ const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URL,
-    methods: ["GET", "POST"],
-    credentials: true,
-    transports: ['websocket', 'polling'],
-},
-allowEIO3: true
-});
-
-server.prependListener("request", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-});
+    cors: {
+        origin: "*"
+    }
+})
 
 io.on('connection', (socket) => {
   console.log('socket is on');
